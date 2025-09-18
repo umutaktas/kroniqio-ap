@@ -337,36 +337,39 @@ function FlowItem({ flow, isActive, onClick, refetch }: FlowItemProps) {
     <SidebarMenuSubItem
       className="cursor-pointer group/item"
       data-flow-id={flow.id}
+      onClick={onClick}
     >
       <SidebarMenuSubButton
-        onClick={onClick}
+        asChild
         className={cn(isActive && 'bg-sidebar-accent', 'pr-0 pl-2')}
       >
-        <span className="truncate">{flow.version.displayName}</span>
-        <FlowActionMenu
-          insideBuilder={false}
-          flow={flow}
-          readonly={false}
-          flowVersion={flow.version}
-          onRename={refetch}
-          onMoveTo={refetch}
-          onDelete={() => {
-            if (flowId === flow.id) {
-              flowsHooks.invalidateFlowsQuery(queryClient);
-            }
-            refetch();
-          }}
-          onDuplicate={refetch}
-        >
-          <Button
-            variant="ghost"
-            size="icon"
-            className="ml-auto group-hover/item:opacity-100 opacity-0"
-            onClick={(e) => e.stopPropagation()}
+        <div className="flex items-center justify-between w-full">
+          <span className="truncate">{flow.version.displayName}</span>
+          <FlowActionMenu
+            insideBuilder={false}
+            flow={flow}
+            readonly={false}
+            flowVersion={flow.version}
+            onRename={refetch}
+            onMoveTo={refetch}
+            onDelete={() => {
+              if (flowId === flow.id) {
+                flowsHooks.invalidateFlowsQuery(queryClient);
+              }
+              refetch();
+            }}
+            onDuplicate={refetch}
           >
-            <EllipsisVertical className="size-4" />
-          </Button>
-        </FlowActionMenu>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="ml-auto group-hover/item:opacity-100 opacity-0"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <EllipsisVertical className="size-4" />
+            </Button>
+          </FlowActionMenu>
+        </div>
       </SidebarMenuSubButton>
     </SidebarMenuSubItem>
   );

@@ -146,31 +146,34 @@ function TableItem({ table, isActive, onClick, refetch }: FlowItemProps) {
     <SidebarMenuSubItem
       className="cursor-pointer group/item"
       data-table-id={table.id}
+      onClick={onClick}
     >
       <SidebarMenuSubButton
-        onClick={onClick}
+        asChild
         className={cn(isActive && 'bg-sidebar-accent', 'pl-2 pr-0')}
       >
-        <span className="truncate">{table.name}</span>
+        <div className="flex items-center justify-between w-full">
+          <span className="truncate">{table.name}</span>
 
-        <ApTableActionsMenu
-          table={table}
-          refetch={refetch}
-          onDelete={() => {
-            if (table.id === tableId) {
-              queryClient.invalidateQueries({ queryKey: ['table', tableId] });
-            }
-          }}
-        >
-          <Button
-            variant="ghost"
-            onClick={(e) => e.stopPropagation()}
-            className="ml-auto group-hover/item:opacity-100 opacity-0"
-            size="icon"
+          <ApTableActionsMenu
+            table={table}
+            refetch={refetch}
+            onDelete={() => {
+              if (table.id === tableId) {
+                queryClient.invalidateQueries({ queryKey: ['table', tableId] });
+              }
+            }}
           >
-            <EllipsisVertical />
-          </Button>
-        </ApTableActionsMenu>
+            <Button
+              variant="ghost"
+              onClick={(e) => e.stopPropagation()}
+              className="ml-auto group-hover/item:opacity-100 opacity-0"
+              size="icon"
+            >
+              <EllipsisVertical />
+            </Button>
+          </ApTableActionsMenu>
+        </div>
       </SidebarMenuSubButton>
     </SidebarMenuSubItem>
   );
