@@ -2,6 +2,7 @@ import { createPiece, PieceAuth, Property } from '@activepieces/pieces-framework
 import { sendMessage } from './lib/actions/send-message';
 import { sendMedia } from './lib/actions/send-media';
 import { sendTemplateMessageAction } from './lib/actions/send-from-template';
+import { whatsappNewMessage } from './lib/trigger/new-message';
 
 const markdown = `
 To Obtain a Phone Number ID and a Permanent System User Access Token, follow these steps:
@@ -42,5 +43,5 @@ export const whatsapp = createPiece({
 	logoUrl: 'https://cdn.activepieces.com/pieces/whatsapp.png',
 	authors: ['LevwTech', 'kishanprmr'],
 	actions: [sendMessage, sendMedia, sendTemplateMessageAction],
-	triggers: [],
+	triggers: [whatsappNewMessage],
 });
