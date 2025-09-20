@@ -13,29 +13,11 @@ services:
       - key: AP_JWT_SECRET
         generateValue: true
       - key: AP_DB_TYPE
-        value: POSTGRES
-      - key: AP_POSTGRES_DATABASE_URL
-        fromDatabase:
-          name: activepieces-db
-          property: connectionString
-      - key: AP_POSTGRES_DATABASE
-        value: activepieces
-      - key: AP_POSTGRES_HOST
-        fromDatabase:
-          name: activepieces-db
-          property: host
-      - key: AP_POSTGRES_PORT
-        fromDatabase:
-          name: activepieces-db
-          property: port
-      - key: AP_POSTGRES_USERNAME
-        fromDatabase:
-          name: activepieces-db
-          property: user
-      - key: AP_POSTGRES_PASSWORD
-        fromDatabase:
-          name: activepieces-db
-          property: password
+        value: SQLITE3
+      - key: AP_CACHE_PATH
+        value: /app/cache
+      - key: AP_CONFIG_PATH
+        value: /app/config
       - key: AP_EXECUTION_MODE
         value: UNSANDBOXED
       - key: AP_QUEUE_MODE
@@ -54,8 +36,3 @@ services:
         value: FILE
       - key: PORT
         value: 80
-
-databases:
-  - name: activepieces-db
-    databaseName: activepieces
-    plan: free
