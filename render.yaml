@@ -36,3 +36,13 @@ services:
         value: FILE
       - key: PORT
         value: 80
+      - key: AP_POSTGRES_DATABASE
+        value: dummy
+      - key: AP_POSTGRES_HOST
+        value: localhost
+      - key: AP_POSTGRES_PORT
+        value: 5432
+      - key: AP_POSTGRES_USERNAME
+        value: dummy
+      - key: AP_POSTGRES_PASSWORD
+        value: dummy
