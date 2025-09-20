@@ -26,6 +26,10 @@ services:
         value: false
       - key: AP_REDIS_URL
         value: redis://localhost:6379
+      - key: AP_REDIS_HOST
+        value: localhost
+      - key: AP_REDIS_PORT
+        value: 6379
       - key: AP_DEV_PIECES
         value: "google-sheets,store,schedule,http,gmail,whatsapp,twilio,telegram,postgres,data-mapper,code,pdf-generator,csv,claude,text-helper,loops,webhook,activepieces,google-gemini"
       - key: AP_PIECES_SOURCE
