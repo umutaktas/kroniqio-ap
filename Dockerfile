@@ -63,8 +63,8 @@ WORKDIR /usr/src/app
 
 COPY packages/server/api/src/assets/default.cf /usr/local/etc/isolate
 
-# Install Nginx and gettext for envsubst
-RUN apt-get update && apt-get install -y nginx gettext
+# Install Nginx, gettext and Redis for envsubst
+RUN apt-get update && apt-get install -y nginx gettext redis-server
 
 # Copy Nginx configuration template
 COPY nginx.react.conf /etc/nginx/nginx.conf
