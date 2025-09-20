@@ -18,6 +18,24 @@ services:
         fromDatabase:
           name: activepieces-db
           property: connectionString
+      - key: AP_POSTGRES_DATABASE
+        value: activepieces
+      - key: AP_POSTGRES_HOST
+        fromDatabase:
+          name: activepieces-db
+          property: host
+      - key: AP_POSTGRES_PORT
+        fromDatabase:
+          name: activepieces-db
+          property: port
+      - key: AP_POSTGRES_USERNAME
+        fromDatabase:
+          name: activepieces-db
+          property: user
+      - key: AP_POSTGRES_PASSWORD
+        fromDatabase:
+          name: activepieces-db
+          property: password
       - key: AP_EXECUTION_MODE
         value: UNSANDBOXED
       - key: AP_QUEUE_MODE
