@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: activepieces-demo
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: AP_FRONTEND_URL
+        value: https://activepieces-demo.onrender.com
+      - key: AP_WEBHOOK_URL
+        value: https://activepieces-demo.onrender.com
+      - key: AP_ENCRYPTION_KEY
+        generateValue: true
+      - key: AP_JWT_SECRET
+        generateValue: true
+      - key: AP_DB_TYPE
+        value: SQLITE3
+      - key: AP_EXECUTION_MODE
+        value: UNSANDBOXED
+      - key: AP_QUEUE_MODE
+        value: MEMORY
+      - key: AP_TELEMETRY_ENABLED
+        value: false
+      - key: AP_CACHE_PATH
+        value: /app/cache
+      - key: AP_CONFIG_PATH
+        value: /app/config
+      - key: AP_ENVIRONMENT
+        value: production
+      - key: AP_LOG_LEVEL
+        value: info
+      - key: AP_DEV_PIECES
+        value: "google-sheets,store,schedule,http,gmail,whatsapp,twilio,telegram,postgres,data-mapper,code,pdf-generator,csv,claude,text-helper,loops,webhook,activepieces,google-gemini"
+      - key: AP_PIECES_SOURCE
+        value: FILE
+      - key: PORT
+        value: 80

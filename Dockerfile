@@ -74,6 +74,8 @@ COPY --from=build /usr/src/app/LICENSE .
 RUN mkdir -p /usr/src/app/dist/packages/server/
 RUN mkdir -p /usr/src/app/dist/packages/engine/
 RUN mkdir -p /usr/src/app/dist/packages/shared/
+RUN mkdir -p /app/cache
+RUN mkdir -p /app/config
 
 # Copy Output files to appropriate directory from build stage
 COPY --from=build /usr/src/app/dist/packages/engine/ /usr/src/app/dist/packages/engine/
@@ -90,8 +92,8 @@ COPY --from=build /usr/src/app/dist/packages/react-ui /usr/share/nginx/html/
 LABEL service=activepieces
 
 # Set up entrypoint script
-COPY docker-entrypoint.sh .
-RUN chmod +x docker-entrypoint.sh
-ENTRYPOINT ["./docker-entrypoint.sh"]
+COPY docker-entrypoint-render.sh .
+RUN chmod +x docker-entrypoint-render.sh
+ENTRYPOINT ["./docker-entrypoint-render.sh"]
 
 EXPOSE 80
