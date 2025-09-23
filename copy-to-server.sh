@@ -24,6 +24,7 @@ FILES=(
     "cloudflare-api-fix.md"
     "test-api-direct.sh"
     "whatsapp-setup-guide.md"
+    "fix-api-url.sh"
 )
 
 echo "Kopyalanacak dosyalar:"
