@@ -35,6 +35,16 @@ export default defineConfig(({ command, mode }) => {
       },
       port: 4200,
       host: '0.0.0.0',
+      hmr: {
+        clientPort: 443,
+      },
+      allowedHosts: [
+        'localhost',
+        '127.0.0.1',
+        'kroniq.io',
+        'www.kroniq.io',
+        '.kroniq.io'
+      ],
     },
 
     preview: {
