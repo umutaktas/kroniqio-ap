@@ -23,6 +23,7 @@ FILES=(
     "DEPLOYMENT_GUIDE.md"
     "cloudflare-api-fix.md"
     "test-api-direct.sh"
+    "whatsapp-setup-guide.md"
 )
 
 echo "Kopyalanacak dosyalar:"
@@ -68,12 +69,16 @@ if [ $? -eq 0 ]; then
     echo "chmod +x test-api-direct.sh"
     echo "./test-api-direct.sh"
     echo ""
-    echo "# 6. Deployment guide'ı kontrol et"
+    echo "# 6. WhatsApp entegrasyonu kur"
+    echo "cat whatsapp-setup-guide.md"
+    echo ""
+    echo "# 7. Deployment guide'ı kontrol et"
     echo "cat DEPLOYMENT_GUIDE.md"
     echo ""
     echo "=========================================="
     echo "ÖNEMLİ: Cloudflare API routing sorunu var!"
     echo "cloudflare-api-fix.md dosyasını okuyun"
+    echo "Sonra WhatsApp setup için whatsapp-setup-guide.md"
     echo "=========================================="
 else
     echo ""
