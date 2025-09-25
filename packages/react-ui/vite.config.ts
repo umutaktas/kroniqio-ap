@@ -38,6 +38,8 @@ export default defineConfig(({ command, mode }) => {
       port: 4200,
       host: '0.0.0.0',
       hmr: {
+        host: 'www.kroniq.io',
+        protocol: 'wss',
         clientPort: 443,
       },
       allowedHosts: [
