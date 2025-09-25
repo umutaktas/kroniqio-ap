@@ -1,7 +1,6 @@
 import { AnalyticsBrowser } from '@segment/analytics-next';
 import posthog from 'posthog-js';
 import React, { useEffect, useState, useRef } from 'react';
-import { useDeepCompareEffect } from 'react-use';
 
 import { flagsHooks } from '@/hooks/flags-hooks';
 import { userHooks } from '@/hooks/user-hooks';
@@ -46,7 +45,7 @@ const TelemetryProvider = ({ children }: TelemetryProviderProps) => {
     };
   }, []);
 
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     if (isNil(user)) {
       return;
     }
@@ -54,7 +53,7 @@ const TelemetryProvider = ({ children }: TelemetryProviderProps) => {
     if (telemetryEnabled && user?.email !== initializedUserEmail.current) {
       initTelemetry();
     }
-  }, [telemetryEnabled, user]);
+  }, [telemetryEnabled, user?.email]);
 
   const initTelemetry = () => {
     if (isNil(user)) {

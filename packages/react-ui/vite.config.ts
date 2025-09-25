@@ -9,8 +9,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import { fa } from 'zod/v4/locales';
 
 export default defineConfig(({ command, mode }) => {
-  //const isDev = command === 'serve' || mode === 'development';
-  const isDev = false;
+  const isDev = command === 'serve' || mode === 'development';
 
   const AP_TITLE = isDev ? 'Activepieces' : (process.env.AP_APP_TITLE || 'Activepieces');
 
