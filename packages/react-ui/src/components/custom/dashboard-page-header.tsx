@@ -1,6 +1,8 @@
 import { VideoIcon } from 'lucide-react';
 
 import { BetaBadge } from '@/components/custom/beta-badge';
+import { SidebarTrigger } from '@/components/ui/sidebar-shadcn';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 import { Button } from '../ui/button';
 
@@ -19,10 +21,13 @@ export const DashboardPageHeader = ({
   beta?: boolean;
   tutorialTab?: TabType;
 }) => {
+  const isMobile = useIsMobile();
+
   return (
     <div className="flex items-center justify-between border-b mb-4 py-2 min-w-full px-4 z-30 -mx-4">
       <div>
         <div className="flex items-center gap-2">
+          {isMobile && <SidebarTrigger />}
           <h1 className="text-xl font-semibold">{title}</h1>
           {tutorialTab && (
             <TutorialsDialog location="table-title" initialTab={tutorialTab}>
