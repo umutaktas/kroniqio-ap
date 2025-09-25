@@ -12,11 +12,11 @@ export default defineConfig(({ command, mode }) => {
   //const isDev = command === 'serve' || mode === 'development';
   const isDev = false;
 
-  const AP_TITLE = isDev ? 'Activepieces' : '${AP_APP_TITLE}';
+  const AP_TITLE = isDev ? 'Activepieces' : (process.env.AP_APP_TITLE || 'Activepieces');
 
   const AP_FAVICON = isDev
     ? 'https://activepieces.com/favicon.ico'
-    : '${AP_FAVICON_URL}';
+    : (process.env.AP_FAVICON_URL || 'https://activepieces.com/favicon.ico');
 
   return {
     root: __dirname,
