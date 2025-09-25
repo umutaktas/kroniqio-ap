@@ -401,7 +401,7 @@ export function DataTable<
       </div>
       {!hidePagination && (
         <div className="flex items-center justify-end space-x-2 py-4">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-sm font-medium">{t('RowsPerPage')}</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {

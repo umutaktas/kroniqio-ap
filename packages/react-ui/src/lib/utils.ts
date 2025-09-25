@@ -152,16 +152,20 @@ export function useForwardedRef<T>(ref: React.ForwardedRef<T>) {
 }
 
 export const localesMap = {
+  [LocalesEnum.ARABIC]: 'العربية',
   [LocalesEnum.CHINESE_SIMPLIFIED]: '简体中文',
   [LocalesEnum.GERMAN]: 'Deutsch',
   [LocalesEnum.ENGLISH]: 'English',
   [LocalesEnum.SPANISH]: 'Español',
+  [LocalesEnum.ESTONIAN]: 'Eesti keel',
   [LocalesEnum.FRENCH]: 'Français',
   [LocalesEnum.JAPANESE]: '日本語',
   [LocalesEnum.DUTCH]: 'Nederlands',
   [LocalesEnum.PORTUGUESE]: 'Português',
   [LocalesEnum.CHINESE_TRADITIONAL]: '繁體中文',
+  [LocalesEnum.TURKISH]: 'Türkçe',
 };
+
 
 export const useElementSize = (ref: RefObject<HTMLElement>) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
