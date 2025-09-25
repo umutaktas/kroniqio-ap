@@ -9,4 +9,6 @@ export enum LocalesEnum {
     PORTUGUESE = 'pt',
     ARABIC = 'ar',
     CHINESE_TRADITIONAL = 'zh-TW',
+    TURKISH = 'tr',
+    ESTONIAN = 'et',
 }

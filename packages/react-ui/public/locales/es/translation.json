@@ -66,6 +66,7 @@
   "Skipped": "Omitido",
   "Incomplete settings": "Ajustes incompletos",
   "logo": "logotipo",
+  "RowsPerPage": "Filas por página",
   "Step Icon": "Icono de Paso",
   "Branch": "Rama",
   "incompleteSteps": "{invalidSteps, plural, =0 {No hay pasos incompletos} =1 {Completa 1 paso} other {Completa # pasos}}",

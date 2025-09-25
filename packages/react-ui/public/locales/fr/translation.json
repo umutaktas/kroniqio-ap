@@ -10,6 +10,7 @@
   "Support": "Aide",
   "Runs": "Exécutions",
   "Versions": "Versions",
+  "RowsPerPage": "Rows per page",
   "Error generating code": "Erreur lors de la génération du code",
   "AI Copilot": "Copilote IA",
   "i.e Calculate the sum of a list...": "ex : calculer la somme d'une liste...",
