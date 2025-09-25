@@ -65,8 +65,8 @@ export function generateTheme({
 
 export const defaultTheme = generateTheme({
     primaryColor: '#6e41e2',
-    websiteName: 'Activepieces',
-    fullLogoUrl: 'https://cdn.activepieces.com/brand/full-logo.png',
-    favIconUrl: 'https://cdn.activepieces.com/brand/favicon.ico',
-    logoIconUrl: 'https://cdn.activepieces.com/brand/logo.svg',
+    websiteName: process.env['AP_APP_TITLE'] || 'Activepieces',
+    fullLogoUrl: process.env['AP_FULL_LOGO_URL'] || 'https://cdn.activepieces.com/brand/full-logo.png',
+    favIconUrl: process.env['AP_FAVICON_URL'] || 'https://cdn.activepieces.com/brand/favicon.ico',
+    logoIconUrl: process.env['AP_LOGO_ICON_URL'] || 'https://cdn.activepieces.com/brand/logo.svg',
 })
