@@ -2,7 +2,7 @@ import { createAction, Property } from '@activepieces/pieces-framework';
 
 export const runCode = createAction({
   name: 'run-code',
-  displayName: 'Run JavaScript Code',
+  displayName: 'Run Code',
   description: 'Execute custom JavaScript code',
   props: {
     code: Property.LongText({
@@ -24,43 +24,24 @@ export const runCode = createAction({
   return result;
 };`,
     }),
-    inputs: Property.Json({
-      displayName: 'Input Data',
-      description: 'Data to pass to the code',
-      required: false,
-      defaultValue: {},
-    }),
   },
   async run(context) {
-    const { code: userCode, inputs } = context.propsValue;
+    const { code: userCode } = context.propsValue;
+
+    // Get all previous step data
+    const inputs = context.run.steps;
 
     try {
       // Create a function from the user's code
       const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-      const codeFunction = new AsyncFunction('inputs', 'require', 'console', userCode + '\n return code(inputs);');
+      const codeFunction = new AsyncFunction('inputs', userCode + '\n return code(inputs);');
 
-      // Create a safe console object
-      const safeConsole = {
-        log: (...args: any[]) => console.log('[User Code]', ...args),
-        error: (...args: any[]) => console.error('[User Code]', ...args),
-        warn: (...args: any[]) => console.warn('[User Code]', ...args),
-        info: (...args: any[]) => console.info('[User Code]', ...args),
-      };
+      // Execute the code with previous step data
+      const result = await codeFunction(inputs);
 
-      // Execute the code
-      const result = await codeFunction(inputs || {}, require, safeConsole);
-
-      return {
-        success: true,
-        output: result
-      };
+      return result;
     } catch (error: any) {
-      console.error('Code execution error:', error);
-      return {
-        success: false,
-        error: error.message,
-        stack: error.stack
-      };
+      throw new Error(`Code execution error: ${error.message}`);
     }
   },
 });
