@@ -95,6 +95,12 @@ Using ActivePieces built-in table system (`packages/server/api/src/app/tables/`)
 - All code pieces ready to copy-paste into ActivePieces flow
 - SAP dummy data initialization script ready to run
 
+#### 💡 Important Discovery:
+- **Code piece** is available as built-in action (not trigger)
+- **Location**: After creating trigger → Click "Add Action" → Search "Code"
+- **Usage**: Add webhook trigger first, then add Code actions
+- No custom Code piece implementation needed
+
 ## Common Development Commands
 
 ### Starting Development
