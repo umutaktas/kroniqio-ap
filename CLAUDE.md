@@ -2,6 +2,63 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Current Project: WhatsApp-SAP Integration
+
+### Project Overview
+Building a WhatsApp bot integration that:
+1. Receives messages via WhatsApp Business API webhook at https://kroniq.io
+2. Uses AI (OpenAI/Claude) to understand natural language queries in Turkish/English
+3. Queries dummy SAP data tables (Stock, Customer Balance, Sales Orders)
+4. Returns results as text or PDF reports based on user request
+
+### Implementation Status
+- [x] WhatsApp piece exists in `packages/pieces/community/whatsapp`
+- [x] Basic webhook structure documented
+- [ ] SAP dummy tables creation using ActivePieces table system
+- [ ] AI-powered message handler implementation
+- [ ] PDF report generation
+- [ ] Meta webhook configuration for kroniq.io
+
+### SAP Dummy Tables Structure
+Using ActivePieces built-in table system (`packages/server/api/src/app/tables/`):
+
+1. **Stock Table (sap_stok)**
+   - malzeme_kodu (Material Code)
+   - malzeme_adi (Material Name)
+   - miktar (Quantity)
+   - birim (Unit)
+   - depo (Warehouse)
+   - minimum_stok (Min Stock)
+
+2. **Customer Balance Table (sap_musteri_bakiye)**
+   - musteri_kodu (Customer Code)
+   - musteri_adi (Customer Name)
+   - borc (Debt)
+   - alacak (Credit)
+   - bakiye (Balance)
+   - son_islem_tarihi (Last Transaction Date)
+
+3. **Sales Orders Table (sap_satis_siparisleri)**
+   - siparis_no (Order Number)
+   - musteri_kodu (Customer Code)
+   - musteri_adi (Customer Name)
+   - siparis_tarihi (Order Date)
+   - teslim_tarihi (Delivery Date)
+   - toplam_tutar (Total Amount)
+   - durum (Status)
+
+### Example WhatsApp Queries
+- "Stok durumu nedir?" → List all stock
+- "MAL001 kodlu ürünün stoğu" → Specific stock query
+- "Müşteri 12345 bakiyesi" → Customer balance
+- "Bugünkü siparişler" → Today's orders
+- "Rapor olarak gönder" → Send as PDF
+
+### Meta Webhook Configuration
+1. Webhook URL: `https://kroniq.io/v1/webhooks/{flow-id}`
+2. Verify Token: (to be configured)
+3. Subscribe to: messages event
+
 ## Common Development Commands
 
 ### Starting Development
