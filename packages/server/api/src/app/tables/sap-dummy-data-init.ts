@@ -11,9 +11,8 @@ interface SAPTableConfig {
     externalId: string
     fields: {
         name: string
-        displayName: string
         type: FieldType
-        required: boolean
+        externalId: string
     }[]
 }
 
@@ -34,37 +33,37 @@ export class SAPDummyDataInitializer {
             name: 'SAP Stok Durumu',
             externalId: 'sap_stok',
             fields: [
-                { name: 'malzeme_kodu', displayName: 'Malzeme Kodu', type: FieldType.TEXT, required: true },
-                { name: 'malzeme_adi', displayName: 'Malzeme Adı', type: FieldType.TEXT, required: true },
-                { name: 'miktar', displayName: 'Miktar', type: FieldType.NUMBER, required: true },
-                { name: 'birim', displayName: 'Birim', type: FieldType.TEXT, required: true },
-                { name: 'depo', displayName: 'Depo', type: FieldType.TEXT, required: true },
-                { name: 'minimum_stok', displayName: 'Minimum Stok', type: FieldType.NUMBER, required: false },
+                { name: 'malzeme_kodu', externalId: 'malzeme_kodu', type: FieldType.TEXT },
+                { name: 'malzeme_adi', externalId: 'malzeme_adi', type: FieldType.TEXT },
+                { name: 'miktar', externalId: 'miktar', type: FieldType.NUMBER },
+                { name: 'birim', externalId: 'birim', type: FieldType.TEXT },
+                { name: 'depo', externalId: 'depo', type: FieldType.TEXT },
+                { name: 'minimum_stok', externalId: 'minimum_stok', type: FieldType.NUMBER },
             ]
         },
         {
             name: 'SAP Müşteri Bakiye',
             externalId: 'sap_musteri_bakiye',
             fields: [
-                { name: 'musteri_kodu', displayName: 'Müşteri Kodu', type: FieldType.TEXT, required: true },
-                { name: 'musteri_adi', displayName: 'Müşteri Adı', type: FieldType.TEXT, required: true },
-                { name: 'borc', displayName: 'Borç', type: FieldType.NUMBER, required: true },
-                { name: 'alacak', displayName: 'Alacak', type: FieldType.NUMBER, required: true },
-                { name: 'bakiye', displayName: 'Bakiye', type: FieldType.NUMBER, required: true },
-                { name: 'son_islem_tarihi', displayName: 'Son İşlem Tarihi', type: FieldType.DATE, required: false },
+                { name: 'musteri_kodu', externalId: 'musteri_kodu', type: FieldType.TEXT },
+                { name: 'musteri_adi', externalId: 'musteri_adi', type: FieldType.TEXT },
+                { name: 'borc', externalId: 'borc', type: FieldType.NUMBER },
+                { name: 'alacak', externalId: 'alacak', type: FieldType.NUMBER },
+                { name: 'bakiye', externalId: 'bakiye', type: FieldType.NUMBER },
+                { name: 'son_islem_tarihi', externalId: 'son_islem_tarihi', type: FieldType.DATE },
             ]
         },
         {
             name: 'SAP Satış Siparişleri',
             externalId: 'sap_satis_siparisleri',
             fields: [
-                { name: 'siparis_no', displayName: 'Sipariş No', type: FieldType.TEXT, required: true },
-                { name: 'musteri_kodu', displayName: 'Müşteri Kodu', type: FieldType.TEXT, required: true },
-                { name: 'musteri_adi', displayName: 'Müşteri Adı', type: FieldType.TEXT, required: true },
-                { name: 'siparis_tarihi', displayName: 'Sipariş Tarihi', type: FieldType.DATE, required: true },
-                { name: 'teslim_tarihi', displayName: 'Teslim Tarihi', type: FieldType.DATE, required: false },
-                { name: 'toplam_tutar', displayName: 'Toplam Tutar', type: FieldType.NUMBER, required: true },
-                { name: 'durum', displayName: 'Durum', type: FieldType.TEXT, required: true },
+                { name: 'siparis_no', externalId: 'siparis_no', type: FieldType.TEXT },
+                { name: 'musteri_kodu', externalId: 'musteri_kodu', type: FieldType.TEXT },
+                { name: 'musteri_adi', externalId: 'musteri_adi', type: FieldType.TEXT },
+                { name: 'siparis_tarihi', externalId: 'siparis_tarihi', type: FieldType.DATE },
+                { name: 'teslim_tarihi', externalId: 'teslim_tarihi', type: FieldType.DATE },
+                { name: 'toplam_tutar', externalId: 'toplam_tutar', type: FieldType.NUMBER },
+                { name: 'durum', externalId: 'durum', type: FieldType.TEXT },
             ]
         }
     ]
@@ -147,11 +146,10 @@ export class SAPDummyDataInitializer {
                         created: new Date().toISOString(),
                         updated: new Date().toISOString(),
                         tableId: tableId,
+                        projectId: this.projectId,
                         name: fieldConfig.name,
-                        displayName: fieldConfig.displayName,
+                        externalId: fieldConfig.externalId,
                         type: fieldConfig.type,
-                        required: fieldConfig.required,
-                        order: i,
                     })
                 }
 
