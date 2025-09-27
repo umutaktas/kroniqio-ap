@@ -9,35 +9,27 @@ export const runCode = createAction({
       displayName: 'Code',
       description: 'JavaScript code to execute',
       required: true,
-      defaultValue: `export const code = async (inputs) => {
-  // inputs contains all data from previous steps
-  console.log('Previous step data:', inputs);
+      defaultValue: `// Write your JavaScript code here
+// You can access previous step data through the context
 
-  // Your code here
-  const result = {
-    message: 'Hello from Code piece!',
-    timestamp: new Date().toISOString(),
-    data: inputs
-  };
+const result = {
+  message: 'Hello from Code piece!',
+  timestamp: new Date().toISOString()
+};
 
-  // Return your output
-  return result;
-};`,
+return result;`,
     }),
   },
-  async run(context) {
-    const { code: userCode } = context.propsValue;
-
-    // Get all previous step data
-    const inputs = context.run.steps;
+  async run(ctx) {
+    const { code: userCode } = ctx.propsValue;
 
     try {
       // Create a function from the user's code
       const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-      const codeFunction = new AsyncFunction('inputs', userCode + '\n return code(inputs);');
+      const codeFunction = new AsyncFunction(userCode);
 
-      // Execute the code with previous step data
-      const result = await codeFunction(inputs);
+      // Execute the code
+      const result = await codeFunction();
 
       return result;
     } catch (error: any) {
