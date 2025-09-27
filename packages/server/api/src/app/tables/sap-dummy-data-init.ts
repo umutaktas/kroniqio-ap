@@ -149,7 +149,7 @@ export class SAPDummyDataInitializer {
                         projectId: this.projectId,
                         name: fieldConfig.name,
                         externalId: fieldConfig.externalId,
-                        type: fieldConfig.type,
+                        type: fieldConfig.type as any,
                     })
                 }
 
