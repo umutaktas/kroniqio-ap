@@ -4,7 +4,7 @@ import { FieldEntity } from './field/field.entity'
 import { RecordEntity } from './record/record.entity'
 import { CellEntity } from './record/cell.entity'
 import { nanoid } from 'nanoid'
-import { FieldType, TableStatus } from '@activepieces/shared'
+import { FieldType, TableAutomationStatus } from '@activepieces/shared'
 
 interface SAPTableConfig {
     name: string
@@ -34,11 +34,11 @@ export class SAPDummyDataInitializer {
             name: 'SAP Stok Durumu',
             externalId: 'sap_stok',
             fields: [
-                { name: 'malzeme_kodu', displayName: 'Malzeme Kodu', type: FieldType.SHORT_TEXT, required: true },
-                { name: 'malzeme_adi', displayName: 'Malzeme Adı', type: FieldType.SHORT_TEXT, required: true },
+                { name: 'malzeme_kodu', displayName: 'Malzeme Kodu', type: FieldType.TEXT, required: true },
+                { name: 'malzeme_adi', displayName: 'Malzeme Adı', type: FieldType.TEXT, required: true },
                 { name: 'miktar', displayName: 'Miktar', type: FieldType.NUMBER, required: true },
-                { name: 'birim', displayName: 'Birim', type: FieldType.SHORT_TEXT, required: true },
-                { name: 'depo', displayName: 'Depo', type: FieldType.SHORT_TEXT, required: true },
+                { name: 'birim', displayName: 'Birim', type: FieldType.TEXT, required: true },
+                { name: 'depo', displayName: 'Depo', type: FieldType.TEXT, required: true },
                 { name: 'minimum_stok', displayName: 'Minimum Stok', type: FieldType.NUMBER, required: false },
             ]
         },
@@ -46,25 +46,25 @@ export class SAPDummyDataInitializer {
             name: 'SAP Müşteri Bakiye',
             externalId: 'sap_musteri_bakiye',
             fields: [
-                { name: 'musteri_kodu', displayName: 'Müşteri Kodu', type: FieldType.SHORT_TEXT, required: true },
-                { name: 'musteri_adi', displayName: 'Müşteri Adı', type: FieldType.SHORT_TEXT, required: true },
+                { name: 'musteri_kodu', displayName: 'Müşteri Kodu', type: FieldType.TEXT, required: true },
+                { name: 'musteri_adi', displayName: 'Müşteri Adı', type: FieldType.TEXT, required: true },
                 { name: 'borc', displayName: 'Borç', type: FieldType.NUMBER, required: true },
                 { name: 'alacak', displayName: 'Alacak', type: FieldType.NUMBER, required: true },
                 { name: 'bakiye', displayName: 'Bakiye', type: FieldType.NUMBER, required: true },
-                { name: 'son_islem_tarihi', displayName: 'Son İşlem Tarihi', type: FieldType.DATE_TIME, required: false },
+                { name: 'son_islem_tarihi', displayName: 'Son İşlem Tarihi', type: FieldType.DATE, required: false },
             ]
         },
         {
             name: 'SAP Satış Siparişleri',
             externalId: 'sap_satis_siparisleri',
             fields: [
-                { name: 'siparis_no', displayName: 'Sipariş No', type: FieldType.SHORT_TEXT, required: true },
-                { name: 'musteri_kodu', displayName: 'Müşteri Kodu', type: FieldType.SHORT_TEXT, required: true },
-                { name: 'musteri_adi', displayName: 'Müşteri Adı', type: FieldType.SHORT_TEXT, required: true },
-                { name: 'siparis_tarihi', displayName: 'Sipariş Tarihi', type: FieldType.DATE_TIME, required: true },
-                { name: 'teslim_tarihi', displayName: 'Teslim Tarihi', type: FieldType.DATE_TIME, required: false },
+                { name: 'siparis_no', displayName: 'Sipariş No', type: FieldType.TEXT, required: true },
+                { name: 'musteri_kodu', displayName: 'Müşteri Kodu', type: FieldType.TEXT, required: true },
+                { name: 'musteri_adi', displayName: 'Müşteri Adı', type: FieldType.TEXT, required: true },
+                { name: 'siparis_tarihi', displayName: 'Sipariş Tarihi', type: FieldType.DATE, required: true },
+                { name: 'teslim_tarihi', displayName: 'Teslim Tarihi', type: FieldType.DATE, required: false },
                 { name: 'toplam_tutar', displayName: 'Toplam Tutar', type: FieldType.NUMBER, required: true },
-                { name: 'durum', displayName: 'Durum', type: FieldType.SHORT_TEXT, required: true },
+                { name: 'durum', displayName: 'Durum', type: FieldType.TEXT, required: true },
             ]
         }
     ]
@@ -102,7 +102,7 @@ export class SAPDummyDataInitializer {
     }
 
     async initializeSAPTables(): Promise<void> {
-        const connection = databaseConnection.getConnection()
+        const connection = databaseConnection()
 
         console.log('🚀 Starting SAP dummy data initialization...')
 
@@ -130,7 +130,7 @@ export class SAPDummyDataInitializer {
                     name: config.name,
                     externalId: config.externalId,
                     projectId: this.projectId,
-                    status: TableStatus.READY,
+                    status: TableAutomationStatus.ENABLED,
                 })
 
                 console.log(`✅ Created table: ${config.name}`)
@@ -197,7 +197,7 @@ export class SAPDummyDataInitializer {
     }
 
     async cleanupSAPTables(): Promise<void> {
-        const connection = databaseConnection.getConnection()
+        const connection = databaseConnection()
 
         console.log('🗑️ Cleaning up SAP tables...')
 
