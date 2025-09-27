@@ -1,0 +1,12 @@
+{
+  "name": "code",
+  "displayName": "Code",
+  "description": "Run custom JavaScript code",
+  "version": "0.1.0",
+  "minimumSupportedRelease": "0.20.0",
+  "maximumSupportedRelease": "999.999.999",
+  "logoUrl": "https://cdn.activepieces.com/pieces/code.svg",
+  "categories": ["CORE"],
+  "authors": ["activepieces"],
+  "auth": null
+}
