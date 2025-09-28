@@ -1,4 +1,5 @@
 import { createTrigger, TriggerStrategy } from '@activepieces/pieces-framework';
+import { WebhookHandshakeStrategy } from '@activepieces/shared';
 import { HttpMethod, httpClient } from '@activepieces/pieces-common';
 import { whatsappAuth } from '../..';
 
@@ -23,6 +24,45 @@ export const whatsappNewMessage = createTrigger({
   },
   type: TriggerStrategy.WEBHOOK,
 
+  // Handle Meta webhook verification via handshake
+  handshakeConfiguration: {
+    strategy: WebhookHandshakeStrategy.QUERY_PRESENT,
+    paramName: 'hub.mode'
+  },
+
+  async onHandshake(context) {
+    const queryParams = context.payload.queryParams || {};
+    const mode = queryParams['hub.mode'];
+    const token = queryParams['hub.verify_token'];
+    const challenge = queryParams['hub.challenge'];
+
+    console.log('[WhatsApp Handshake] Verification request:', {
+      mode,
+      token,
+      challenge
+    });
+
+    // Check if this is a valid subscription request
+    // We accept any verify token since it's configured in Meta's side
+    if (mode === 'subscribe' && token && challenge) {
+      console.log('[WhatsApp Handshake] Verification successful, returning challenge:', challenge);
+      // Meta expects the challenge value as plain text response
+      return {
+        status: 200,
+        body: challenge,
+        headers: {
+          'content-type': 'text/plain'
+        }
+      };
+    }
+
+    console.log('[WhatsApp Handshake] Verification failed - missing parameters');
+    return {
+      status: 400,
+      body: 'Invalid verification request'
+    };
+  },
+
   async onEnable(context) {
     // WhatsApp webhook verification
     // Store webhook URL for later use
@@ -38,24 +78,12 @@ export const whatsappNewMessage = createTrigger({
     const payload = context.payload as any;
     const body = payload.body;
     const headers = payload.headers;
-    const queryParams = payload.queryParams || {};
 
-    // Handle WhatsApp webhook verification (GET request)
-    if (queryParams['hub.mode']) {
-      const mode = queryParams['hub.mode'];
-      const token = queryParams['hub.verify_token'];
-      const challenge = queryParams['hub.challenge'];
-
-      if (mode === 'subscribe' && token) {
-        // Return the challenge for webhook verification
-        return [{
-          success: true,
-          challenge: challenge,
-          verified: true
-        }];
-      }
-      return [];
-    }
+    console.log('[WhatsApp Trigger] Received webhook message:', {
+      method: payload.method,
+      hasBody: !!body,
+      bodyEntries: body?.entry?.length || 0
+    });
 
     // Handle incoming messages (POST request)
     if (body && body.entry) {
