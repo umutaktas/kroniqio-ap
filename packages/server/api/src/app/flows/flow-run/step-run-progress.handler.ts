@@ -21,10 +21,15 @@ export const stepRunProgressHandler = (log: FastifyBaseLogger) => ({
             // In single-step execution mode, the engine executes the step directly without traverse the flow, which means the step will always be at the root level
             const stepOutput = populatedFlowRun.steps[populatedFlowRun.stepNameToTest]
 
-            if (isNil(stepOutput) || !isFlowRunStateTerminal({
+            // Only return response when flow is in terminal state AND step output exists
+            if (!isFlowRunStateTerminal({
                 status: populatedFlowRun.status,
                 ignoreInternalError: false,
             })) {
+                return null
+            }
+
+            if (isNil(stepOutput)) {
                 return null
             }
 

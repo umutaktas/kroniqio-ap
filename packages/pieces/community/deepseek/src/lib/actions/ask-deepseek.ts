@@ -191,7 +191,12 @@ export const askDeepseek = createAction({
       await store.put(memoryKey, messageHistory, StoreScope.PROJECT);
     }
 
-    return completion.choices[0].message.content;
+    // Return as an object for proper display in ActivePieces UI
+    return {
+      response: completion.choices[0].message.content,
+      model: model,
+      usage: completion.usage
+    };
   },
 });
 
